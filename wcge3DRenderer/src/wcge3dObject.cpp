@@ -231,7 +231,7 @@ void wcge::r3d::Object::Draw() {
 	m_pPipeline->BindVertexShaderBuffer(m_nViewMatrixId, ObjectConstantBufferPosition::VIEW_MATRIX);
 	m_pPipeline->BindVertexShaderBuffer(m_nRotationMatrixId, ObjectConstantBufferPosition::ROTATION_MATRIX);
 	m_pPipeline->BindPixelShader(m_nPixelShaderId);
-	m_pPipeline->GetConstantBuffer(m_nViewMatrixId).mat4_00 = Mat4MakeScale(m_vScale) * Mat4MakeRotationZXY(m_vRotation) * Mat4MakeTranslation(m_vRotation) * m_pCamera->GetCameraViewMatrix();
+	m_pPipeline->GetConstantBuffer(m_nViewMatrixId).mat4_00 = Mat4MakeScale(m_vScale) * Mat4MakeRotationZXY(m_vRotation) * Mat4MakeTranslation(m_vPosition) * m_pCamera->GetCameraViewMatrix();
 	m_pPipeline->GetConstantBuffer(m_nRotationMatrixId).mat3_00 = Mat3MakeRotationZXY(m_vRotation);
 	m_pPipeline->BindPixelShaderTexture(m_nTextureId, 0);
 
