@@ -3,6 +3,10 @@
 #include "wcgeImage.hpp"
 #include "wcgeCB.hpp"
 
+#ifndef DITHERING_ENABLED
+#define DITHERING_ENABLED 1
+#endif // DITHERING_ENABLED
+
 namespace wcge {
 	class CBImage {
 	public:
@@ -18,11 +22,13 @@ namespace wcge {
 		inline uint32_t GetHeight() const { return m_nHeight; }
 		inline CB* const GetBufferPtr() const { return m_pBuffer; }
 		inline size_t GetBufferSize() const { return sizeof(CB) * (size_t)m_nWidth * (size_t)m_nHeight; }
+		inline const Image& GetDitheredImage() const { return *m_pImgDithered; }
 
 	private:
 		uint32_t m_nWidth = 0;
 		uint32_t m_nHeight = 0;
 
 		CB* m_pBuffer = nullptr;
+		Image* m_pImgDithered = nullptr;
 	};
 }

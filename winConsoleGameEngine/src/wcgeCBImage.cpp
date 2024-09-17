@@ -10,11 +10,14 @@ wcge::CBImage::CBImage( const Image& img ) {
 
 	m_pBuffer = new CB[(uint64_t)m_nWidth * (uint64_t)m_nHeight];
 
-	Image ditheredImg(img);
+	m_pImgDithered = new Image(img);
+
+#if DITHERING_ENABLED == 1
+	Image& ditheredImg = *m_pImgDithered;
 
 	for (uint32_t y = 0; y < m_nHeight; y++) {
 		for (uint32_t x = 0; x < m_nWidth; x++) {
-			Pixel op = img.GetPixel(x, y);
+			Pixel op = ditheredImg.GetPixel(x, y);
 			Pixel qp = utility::PixelConverter::GetIntstance().GetClosestPixel(op);
 
 			int32_t error[3] = {
@@ -54,30 +57,32 @@ wcge::CBImage::CBImage( const Image& img ) {
 			UpdatePixel( -1, +1, 3.0f / 16.0f);
 		}
 	}
-
-
-//	for ( uint32_t y = 0; y < m_nHeight; y++ ) {
-//		for ( uint32_t x = 0; x < m_nWidth; x++ ) {
-//#if defined( _MSC_VER )
-//#pragma warning( push )
-//#pragma warning( disable : 6386 )
-//#endif // _MSC_VER
-//			m_pBuffer[(uint64_t)x + (uint64_t)y * (uint64_t)m_nWidth] = utility::PixelConverter::GetIntstance().ConvertPixelToCB( img.GetPixel( x, y ) );
-//#if defined( _MSC_VER )
-//#pragma warning( pop )
-//#endif // _MSC_VER
-//		}
-//	}
+#else
+	for ( uint32_t y = 0; y < m_nHeight; y++ ) {
+		for ( uint32_t x = 0; x < m_nWidth; x++ ) {
+#if defined( _MSC_VER )
+#pragma warning( push )
+#pragma warning( disable : 6386 )
+#endif // _MSC_VER
+			m_pBuffer[(uint64_t)x + (uint64_t)y * (uint64_t)m_nWidth] = utility::PixelConverter::GetIntstance().ConvertPixelToCB( img.GetPixel( x, y ) );
+#if defined( _MSC_VER )
+#pragma warning( pop )
+#endif // _MSC_VER
+		}
+	}
+#endif // DITHERING_ENABLED
 }
 
 wcge::CBImage::CBImage( const uint32_t w, const uint32_t h ) : m_nWidth(w), m_nHeight(h) {
 	m_pBuffer = new CB[(uint64_t)m_nWidth * (uint64_t)m_nHeight];
+	m_pImgDithered = new Image(m_nWidth, m_nHeight);
 }
 
 wcge::CBImage::~CBImage() {
 	m_nWidth = 0;
 	m_nHeight = 0;
 	delete[] m_pBuffer;
+	if(m_pImgDithered) delete m_pImgDithered;
 }
 
 void wcge::CBImage::SetCB( const uint32_t x, const uint32_t y, const wcge::CB cb ) {

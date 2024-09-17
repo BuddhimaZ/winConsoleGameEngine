@@ -22,6 +22,8 @@ namespace wcge {
 		inline Pixel* const GetBufferPtr() const { return m_pBuffer; }
 		inline size_t GetBufferSize() const { return sizeof( Pixel ) * (size_t)m_nWidth * (size_t)m_nHeight; }
 
+		void Save(const std::wstring& filename) const;
+
 	private:
 		uint32_t m_nWidth = 0;
 		uint32_t m_nHeight = 0;

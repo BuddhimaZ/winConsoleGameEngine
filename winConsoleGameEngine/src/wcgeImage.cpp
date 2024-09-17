@@ -101,3 +101,49 @@ wcge::Pixel wcge::Image::GetPixel( uint32_t x, uint32_t y ) const {
 	if ( x < m_nWidth && y < m_nHeight ) return m_pBuffer[(uint64_t)x + (uint64_t)y * (uint64_t)m_nWidth];
 	return Pixel();
 }
+
+void wcge::Image::Save(const std::wstring& filename) const {
+	auto GetEncoderClsid = [&filename](const WCHAR* format, CLSID* pClsid) -> void
+		{
+			UINT  num = 0;          // number of image encoders
+			UINT  size = 0;         // size of the image encoder array in bytes
+
+			Gdiplus::ImageCodecInfo* pImageCodecInfo = nullptr;
+
+			Gdiplus::GetImageEncodersSize(&num, &size);
+			if (size == 0)
+			{
+				return;
+			}
+
+			pImageCodecInfo = (Gdiplus::ImageCodecInfo*)(malloc(size));
+			if (pImageCodecInfo == nullptr)
+			{
+				return;
+			}
+
+			GetImageEncoders(num, size, pImageCodecInfo);
+
+			for (UINT j = 0; j < num; ++j)
+			{
+				if (wcscmp(pImageCodecInfo[j].MimeType, format) == 0)
+				{
+					*pClsid = pImageCodecInfo[j].Clsid;
+					free(pImageCodecInfo);
+					return;
+				}
+			}
+
+			free(pImageCodecInfo);
+			return;
+		};
+
+	CLSID bmpID;
+	GetEncoderClsid(L"image/bmp", &bmpID);
+	Gdiplus::Bitmap bitmap(m_nWidth, m_nHeight, m_nWidth * sizeof(Pixel), PixelFormat32bppARGB, reinterpret_cast<BYTE*>(m_pBuffer));
+	if (bitmap.Save(filename.c_str(), &bmpID, nullptr) != Gdiplus::Status::Ok)
+	{
+		return;
+	}
+}
+
