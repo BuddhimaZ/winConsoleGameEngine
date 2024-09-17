@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wcge3dTestbed", "wcge3dTest
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wcge3DRenderer", "wcge3DRenderer\wcge3DRenderer.vcxproj", "{6FDFC704-7334-4636-A973-7CD400B28C8F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wcgeDitheringTestbed", "wcgeDitheringTestbed\wcgeDitheringTestbed.vcxproj", "{18D392A3-31D7-49B9-9B2D-BA9881B9657E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{6FDFC704-7334-4636-A973-7CD400B28C8F}.Release|x64.Build.0 = Release|x64
 		{6FDFC704-7334-4636-A973-7CD400B28C8F}.Release|x86.ActiveCfg = Release|Win32
 		{6FDFC704-7334-4636-A973-7CD400B28C8F}.Release|x86.Build.0 = Release|Win32
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Debug|x64.ActiveCfg = Debug|x64
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Debug|x64.Build.0 = Debug|x64
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Debug|x86.ActiveCfg = Debug|Win32
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Debug|x86.Build.0 = Debug|Win32
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Release|x64.ActiveCfg = Release|x64
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Release|x64.Build.0 = Release|x64
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Release|x86.ActiveCfg = Release|Win32
+		{18D392A3-31D7-49B9-9B2D-BA9881B9657E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

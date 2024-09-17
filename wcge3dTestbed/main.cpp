@@ -61,10 +61,11 @@ private:
 
 		//m_vObjects.push_back(new r3d::Object(
 		//	m_pPipeline,
-		//	r3d::CreateCubeVertexBuffer(1.0f),
+		//	r3d::CreateCubeVertexBuffer(3.0f),
 		//	r3d::CreateCubeIndexBuffer(),
 		//	L"res/texture.jpg"
 		//));		
+		//m_vObjects[0]->GetPosition().z = 10.0f;
 	
 		m_vObjects.push_back(r3d::Object::LoadFromFile(
 			m_pPipeline,
@@ -73,7 +74,7 @@ private:
 		));
 
 		m_vObjects[0]->GetScale() = Vector3(2.0f, 2.0f, 2.0f);
-		m_vObjects[0]->GetPosition() = Vector3(0.0f, -2000.0f, 100.0f);
+		m_vObjects[0]->GetPosition() = Vector3(0.0f, -100.0f, 100.0f);
 
 
 		//m_vObjects.push_back(new r3d::Object(
@@ -129,7 +130,7 @@ private:
 
 		HandleMovement(dt);
 
-		GetBackBuffer().Clear( CB(COLOUR::COL_FG_CYAN, SHADED_CHARACTERS::SC_SOLID));
+		GetBackBuffer().Clear( CB(COLOUR::COL_FG_BLACK, SHADED_CHARACTERS::SC_SOLID));
 		m_pPipeline->ClearDepthBuffer();
 
 		for (auto& object : m_vObjects) {
@@ -215,5 +216,5 @@ private:
 };
 
 int main() {
-	TestBed(150, 75, 8, 8).Run();
+	TestBed(300, 150, 4, 4).Run();
 }

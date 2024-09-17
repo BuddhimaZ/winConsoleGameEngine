@@ -11,7 +11,9 @@ private:
 	bool OnStart() override {
 		SetApplicationName( L"TestBed" );
 
-		m_pImage = new wcge::CBImage(wcge::Image(L"res/texture_3.jpg"));
+		m_pImage = new wcge::CBImage(wcge::Image(L"res/texture.jpg"));
+
+		//m_pImage->GetDitheredImage().Save(L"res/texture_3_dithered.jpg");
 
 		return true;
 	}
