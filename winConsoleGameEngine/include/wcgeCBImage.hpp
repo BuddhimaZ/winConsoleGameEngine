@@ -3,14 +3,10 @@
 #include "wcgeImage.hpp"
 #include "wcgeCB.hpp"
 
-#ifndef DITHERING_ENABLED
-#define DITHERING_ENABLED 1
-#endif // DITHERING_ENABLED
-
 namespace wcge {
 	class CBImage {
 	public:
-		CBImage( const Image& img );
+		CBImage( const Image& img, const bool bDitheringEnabled = true );
 		CBImage( const uint32_t w, const uint32_t h );
 		~CBImage();
 
