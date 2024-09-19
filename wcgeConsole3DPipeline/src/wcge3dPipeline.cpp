@@ -6,6 +6,9 @@ wcge::c3d::Pipeline::Pipeline( ConsoleGameEngine* pEngine ) : m_pEngine( pEngine
 }
 
 wcge::c3d::Pipeline::~Pipeline() {
+	for (auto pTexture : m_vpTextures) {
+		delete pTexture;
+	}
 	delete[] m_pDepthBuffer;
 }
 

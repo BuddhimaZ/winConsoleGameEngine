@@ -27,12 +27,12 @@ wcge::CB PixelShader(const wcge::c3d::Vertex& in, const wcge::c3d::ShaderBinding
 	return binding.pTextures[0]->GetCB(x, y);
 }
 
-wcge::r3d::Object::Object(c3d::Pipeline* pPipeline, const c3d::VertexBuffer& vertexBuffer, const c3d::IndexBuffer& indexBuffer, const std::wstring& texturePath)
+wcge::r3d::Object::Object(c3d::Pipeline* pPipeline, const c3d::VertexBuffer& vertexBuffer, const c3d::IndexBuffer& indexBuffer, const std::wstring& texturePath, const bool bDitheringEnabled)
 	: m_pPipeline(pPipeline), m_pCamera(nullptr), m_vPosition(), m_vRotation(), m_vScale(1.0f, 1.0f, 1.0f) {
 	m_nVertexArrayId = m_pPipeline->CreateVertexArray(vertexBuffer, indexBuffer);
 	m_nVertexShaderId = m_pPipeline->CreateVertexShader(VertexShader);
 	m_nPixelShaderId = m_pPipeline->CreatePixelShader(PixelShader);
-	m_nTextureId = m_pPipeline->CreateTexture(texturePath);
+	m_nTextureId = m_pPipeline->CreateTexture(texturePath, bDitheringEnabled);
 	m_nViewMatrixId = m_pPipeline->CreateConstantBuffer();
 	m_nRotationMatrixId = m_pPipeline->CreateConstantBuffer();
 }
@@ -40,7 +40,7 @@ wcge::r3d::Object::Object(c3d::Pipeline* pPipeline, const c3d::VertexBuffer& ver
 wcge::r3d::Object::~Object() {
 }
 
-wcge::r3d::Object* wcge::r3d::Object::LoadFromFile(c3d::Pipeline* pPipeline, const std::string& path, const std::wstring& texturePath) {
+wcge::r3d::Object* wcge::r3d::Object::LoadFromFile(c3d::Pipeline* pPipeline, const std::string& path, const std::wstring& texturePath, const bool bDitheringEnabled) {
 	struct VertexIndex {
 		uint32_t nPositionIndex;
 		uint32_t nNormalIndex;
@@ -210,7 +210,7 @@ wcge::r3d::Object* wcge::r3d::Object::LoadFromFile(c3d::Pipeline* pPipeline, con
 	if (LoadObjectIntoMemory()) {
 
 		CreateBuffers();
-		return new Object(pPipeline, vertexBuffer, indexBuffer, texturePath);
+		return new Object(pPipeline, vertexBuffer, indexBuffer, texturePath, bDitheringEnabled);
 	}
 
 	return nullptr;

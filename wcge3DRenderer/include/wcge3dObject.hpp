@@ -17,10 +17,10 @@ namespace wcge {
 
 		class Object {
 		public:
-			Object(c3d::Pipeline* pPipeline, const c3d::VertexBuffer& vertexBuffer, const c3d::IndexBuffer& indexBuffer, const std::wstring& texturePath);
+			Object(c3d::Pipeline* pPipeline, const c3d::VertexBuffer& vertexBuffer, const c3d::IndexBuffer& indexBuffer, const std::wstring& texturePath, const bool bDitheringEnabled = true);
 			~Object();
 
-			static Object* LoadFromFile(c3d::Pipeline* pPipeline, const std::string& path, const std::wstring& texturePath);
+			static Object* LoadFromFile(c3d::Pipeline* pPipeline, const std::string& path, const std::wstring& texturePath, const bool bDitheringEnabled = true);
 			static void Delete(Object* pObject);
 
 			inline Math::Vector3& GetPosition() { return m_vPosition; }

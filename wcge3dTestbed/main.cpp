@@ -52,47 +52,61 @@ private:
 			static_cast<uint32_t>(GetBackBuffer().GetWidth()), 
 			static_cast<uint32_t>(GetBackBuffer().GetHeight()), 
 			90.0f, 
-			0.5f, 
-			1000.0f
+			1.0f, 
+			500.0f
 		);
 
 		m_pCamera->SetMovementSpeed(25.0f);
 		m_pCamera->SetRotationSpeed(3.0f);
+
+		m_pCamera->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+
+	
+
+
+
 
 		//m_vObjects.push_back(new r3d::Object(
 		//	m_pPipeline,
 		//	r3d::CreateCubeVertexBuffer(3.0f),
 		//	r3d::CreateCubeIndexBuffer(),
 		//	L"res/texture.jpg"
-		//));		
-		//m_vObjects[0]->GetPosition().z = 10.0f;
-	
+		//));
+		//m_vObjects[1]->GetPosition() = Vector3(0.0f, 200.0f, 0.0f);
+
+		m_vObjects.push_back(new r3d::Object(
+			m_pPipeline,
+			r3d::CreateCubeVertexBuffer(1.0f),
+			r3d::CreateCubeIndexBuffer(),
+			L"res/texture.jpg"
+		));		
+		
+		m_vObjects.push_back(new r3d::Object(
+			m_pPipeline,
+			r3d::CreateCubeVertexBuffer(1.0f),
+			r3d::CreateCubeIndexBuffer(),
+			L"res/texture_2.jpg"
+		));
+
+		m_vObjects.push_back(new r3d::Object(
+			m_pPipeline,
+			r3d::CreateCubeVertexBuffer(1.0f),
+			r3d::CreateCubeIndexBuffer(),
+			L"res/texture_3.jpg"
+		));
+
+		m_vObjects[1]->GetPosition() += Vector3(5.0f, 0.0f, 0.0f);
+		m_vObjects[2]->GetPosition() += Vector3(-5.0f, 0.0f, 0.0f);
+
 		m_vObjects.push_back(r3d::Object::LoadFromFile(
 			m_pPipeline,
 			"res/dragon.obj",
-			L"res/dragon.png"
+			L"res/dragon.png",
+			false
 		));
 
-		m_vObjects[0]->GetScale() = Vector3(2.0f, 2.0f, 2.0f);
-		m_vObjects[0]->GetPosition() = Vector3(0.0f, -100.0f, 100.0f);
-
-
-		//m_vObjects.push_back(new r3d::Object(
-		//	m_pPipeline,
-		//	r3d::CreateCubeVertexBuffer(1.0f),
-		//	r3d::CreateCubeIndexBuffer(),
-		//	L"res/texture_2.jpg"
-		//));
-
-		//m_vObjects.push_back(new r3d::Object(
-		//	m_pPipeline,
-		//	r3d::CreateCubeVertexBuffer(1.0f),
-		//	r3d::CreateCubeIndexBuffer(),
-		//	L"res/texture_3.jpg"
-		//));
-
-		//m_vObjects[1]->GetPosition() += Vector3(5.0f, 0.0f, 0.0f);
-		//m_vObjects[2]->GetPosition() += Vector3(-5.0f, 0.0f, 0.0f);
+		m_vObjects[3]->GetScale() = Vector3(1.0f, 1.0f, 1.0f);
+		m_vObjects[3]->GetPosition() = Vector3(0.0f, -50.0f, 0.0f);
 
 		for (auto& object : m_vObjects) {
 			object->SetCamera(m_pCamera);
@@ -133,7 +147,7 @@ private:
 		GetBackBuffer().Clear( CB(COLOUR::COL_FG_BLACK, SHADED_CHARACTERS::SC_SOLID));
 		m_pPipeline->ClearDepthBuffer();
 
-		for (auto& object : m_vObjects) {
+		for (auto object : m_vObjects) {
 			object->Draw();
 		}
 
