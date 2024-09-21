@@ -101,7 +101,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +135,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,7 +152,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,18 +164,12 @@
   <ItemGroup>
     <ClInclude Include="include\wcgeCB.hpp" />
     <ClInclude Include="include\wcgeCBImage.hpp" />
-    <ClInclude Include="include\wcgeImage.hpp" />
-    <ClInclude Include="include\wcgeKeys.hpp" />
-    <ClInclude Include="include\wcgePixel.hpp" />
     <ClInclude Include="include\wcgeConsoleGameEngine.hpp" />
     <ClInclude Include="include\wcgePixelConverter.hpp" />
-    <ClInclude Include="include\wcgeWindowsHeader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\wcgeCB.cpp" />
     <ClCompile Include="src\wcgeCBImage.cpp" />
-    <ClCompile Include="src\wcgeImage.cpp" />
-    <ClCompile Include="src\wcgePixel.cpp" />
     <ClCompile Include="src\wcgeConsoleGameEngine.cpp" />
     <ClCompile Include="src\wcgePixelConverter.cpp" />
   </ItemGroup>

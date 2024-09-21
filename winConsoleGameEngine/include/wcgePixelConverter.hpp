@@ -1,8 +1,8 @@
 #pragma once
 
-#include "wcgePixel.hpp"
+#include <wcgePixel.hpp>
 #include "wcgeCB.hpp"
-#include "wcgeImage.hpp"
+#include <wcgeImage.hpp>
 
 #include <unordered_map>
 #include <vector>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "wcgeImage.hpp"
+#include <wcgeImage.hpp>
 #include "wcgeCB.hpp"
 
 namespace wcge {

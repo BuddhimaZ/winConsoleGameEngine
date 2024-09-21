@@ -15,30 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\wcgeConsoleGameEngine.hpp">
+    <ClInclude Include="include\wcgeImage.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\wcgeCB.hpp">
+    <ClInclude Include="include\wcgeKeys.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\wcgeCBImage.hpp">
+    <ClInclude Include="include\wcgePixel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\wcgePixelConverter.hpp">
+    <ClInclude Include="include\wcgeWindowsHeader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\wcgeConsoleGameEngine.cpp">
+    <ClCompile Include="src\wcgePixel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\wcgeCB.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\wcgeCBImage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\wcgePixelConverter.cpp">
+    <ClCompile Include="src\wcgeImage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

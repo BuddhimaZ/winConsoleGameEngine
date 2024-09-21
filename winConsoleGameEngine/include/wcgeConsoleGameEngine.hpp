@@ -1,8 +1,8 @@
 #pragma once
 
-#include "wcgeWindowsHeader.hpp"
+#include <wcgeWindowsHeader.hpp>
 #include "wcgeCBImage.hpp"
-#include "wcgeKeys.hpp"
+#include <wcgeKeys.hpp>
 
 #include <cstdint>
 #include <string>
