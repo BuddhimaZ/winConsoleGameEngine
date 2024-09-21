@@ -70,7 +70,7 @@ private:
 		//	m_pPipeline,
 		//	r3d::CreateCubeVertexBuffer(3.0f),
 		//	r3d::CreateCubeIndexBuffer(),
-		//	L"res/texture.jpg"
+		//	L"wcgeResources/texture.jpg"
 		//));
 		//m_vObjects[1]->GetPosition() = Vector3(0.0f, 200.0f, 0.0f);
 
@@ -78,21 +78,21 @@ private:
 			m_pPipeline,
 			r3d::CreateCubeVertexBuffer(1.0f),
 			r3d::CreateCubeIndexBuffer(),
-			L"res/texture.jpg"
+			L"wcgeResources/texture.jpg"
 		));		
 		
 		m_vObjects.push_back(new r3d::Object(
 			m_pPipeline,
 			r3d::CreateCubeVertexBuffer(1.0f),
 			r3d::CreateCubeIndexBuffer(),
-			L"res/texture_2.jpg"
+			L"wcgeResources/texture_2.jpg"
 		));
 
 		m_vObjects.push_back(new r3d::Object(
 			m_pPipeline,
 			r3d::CreateCubeVertexBuffer(1.0f),
 			r3d::CreateCubeIndexBuffer(),
-			L"res/texture_3.jpg"
+			L"wcgeResources/texture_3.jpg"
 		));
 
 		m_vObjects[1]->GetPosition() += Vector3(5.0f, 0.0f, 0.0f);
@@ -100,8 +100,8 @@ private:
 
 		m_vObjects.push_back(r3d::Object::LoadFromFile(
 			m_pPipeline,
-			"res/dragon.obj",
-			L"res/dragon.png",
+			"wcgeResources/dragon.obj",
+			L"wcgeResources/dragon.png",
 			false
 		));
 

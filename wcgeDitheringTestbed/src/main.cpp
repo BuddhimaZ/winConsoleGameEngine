@@ -15,7 +15,7 @@ private:
 	bool OnUserCreate() override {
 		tv.Initialise({ ScreenWidth(), ScreenHeight() });
 
-		pImg = new wcge::CBImage( wcge::Image(L"res/texture.jpg") );
+		pImg = new wcge::CBImage( wcge::Image(L"wcgeResources/texture.jpg") );
 		pActive = new olc::Sprite(pImg->GetWidth(), pImg->GetHeight());
 
 

@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wcgeDitheringTestbed", "wcg
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wcgeMath", "wcgeMath\wcgeMath.vcxproj", "{3B82A4AA-8131-48CB-A7F7-C71E777BE9A5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wcgeResources", "wcgeResources\wcgeResources.vcxitems", "{DEA2041B-C9C9-43C5-AE79-9E8D04833DE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
