@@ -3,7 +3,7 @@
 #include "wcge3dCamera.hpp"
 
 #include <wcge3dPipeline.hpp>
-#include <Math/wcgeMath.hpp>
+#include <wcgeMath.hpp>
 
 namespace wcge {
 	namespace r3d {

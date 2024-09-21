@@ -1,4 +1,4 @@
-#include <Math/wcgeMath.hpp>
+#include <wcgeMath.hpp>
 
 namespace wcge {
 	namespace Math {

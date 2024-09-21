@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Math/wcgeMath.hpp>
+#include <wcgeMath.hpp>
 
 namespace wcge {
 	namespace r3d {
