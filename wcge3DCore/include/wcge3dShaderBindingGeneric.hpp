@@ -1,13 +1,13 @@
 #pragma once
 
-#include <wcgeCBImage.hpp>
 #include "wcge3dConstantBuffer.hpp"
 
 namespace wcge {
 	namespace c3d {
-		struct ShaderBinding {
+		template <typename TextureType>
+		struct ShaderBindingGeneric {
 			ConstantBuffer* pCbuffers[8];
-			CBImage* pTextures[8];
+			TextureType* pTextures[8];
 		};
 	}
 }

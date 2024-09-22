@@ -9,19 +9,21 @@
 #include <iostream>
 #include <iterator>
 
-void VertexShader(wcge::c3d::Vertex& out, const wcge::c3d::Vertex& in, const wcge::c3d::ShaderBinding& binding) {
+#include <wcge3dShaderBindingGeneric.hpp>
+
+void VertexShader(wcge::c3d::Vertex& out, const wcge::c3d::Vertex& in, const wcge::c3d::ShaderBindingGeneric<wcge::CBImage>& binding) {
 	using namespace wcge::Math;
 	using namespace wcge::r3d;
 
 	const Mat4x4& viewMatrix = binding.pCbuffers[ObjectConstantBufferPosition::VIEW_MATRIX]->mat4_00;
-	const Mat3x3& rotationMatrix = binding.pCbuffers[ObjectConstantBufferPosition::ROTATION_MATRIX]->mat3_00;
+	// const Mat3x3& rotationMatrix = binding.pCbuffers[ObjectConstantBufferPosition::ROTATION_MATRIX]->mat3_00;
 
 	out.position = in.position * viewMatrix;
-	out.normal = in.normal * rotationMatrix;
+	// out.normal = in.normal * rotationMatrix;
 	out.uv = in.uv;
 }
 
-wcge::CB PixelShader(const wcge::c3d::Vertex& in, const wcge::c3d::ShaderBinding& binding) {
+wcge::CB PixelShader(const wcge::c3d::Vertex& in, const wcge::c3d::ShaderBindingGeneric<wcge::CBImage>& binding) {
 	uint32_t x = (uint32_t)(in.uv.x * binding.pTextures[0]->GetWidth());
 	uint32_t y = (uint32_t)(in.uv.y * binding.pTextures[0]->GetHeight());
 	return binding.pTextures[0]->GetCB(x, y);
@@ -32,7 +34,7 @@ wcge::r3d::Object::Object(c3d::Pipeline* pPipeline, const c3d::VertexBuffer& ver
 	m_nVertexArrayId = m_pPipeline->CreateVertexArray(vertexBuffer, indexBuffer);
 	m_nVertexShaderId = m_pPipeline->CreateVertexShader(VertexShader);
 	m_nPixelShaderId = m_pPipeline->CreatePixelShader(PixelShader);
-	m_nTextureId = m_pPipeline->CreateTexture(texturePath, bDitheringEnabled);
+	m_nTextureId = m_pPipeline->CreateTexture(texturePath);
 	m_nViewMatrixId = m_pPipeline->CreateConstantBuffer();
 	m_nRotationMatrixId = m_pPipeline->CreateConstantBuffer();
 }
