@@ -22,9 +22,9 @@ private:
 		m_pCamera = new wcge::r3d::Camera(
 			static_cast<uint32_t>(ScreenWidth()),
 			static_cast<uint32_t>(ScreenHeight()),
-			90.0f,
-			1.0f,
-			500.0f
+			m_fFOV,
+			m_fZNear,
+			m_fZFar
 		);
 
 		m_pCamera->SetMovementSpeed(25.0f);
@@ -100,6 +100,18 @@ private:
 			object->Draw();
 		}
 
+		for (uint32_t y = 0; y < ScreenHeight(); y++) {
+			for (uint32_t x = 0; x < ScreenWidth(); x++) {
+				float fZNormalized = GetZNormalized(m_pPipeline->GetDepthBufferValue(x, y));
+
+				olc::Pixel p = GetDrawTarget()->GetPixel(x, y);
+				p = // p * fZNormalized;
+					olc::PixelF(fZNormalized, fZNormalized, fZNormalized, 1.0f);
+
+				Draw(x, y, p);
+			}
+		}
+
 		return true;
 	}
 
@@ -171,6 +183,16 @@ private:
 	wcge::r3d::Camera* m_pCamera;
 
 	std::vector<wcge::r3d::Model*> m_vObjects;
+
+	static constexpr float m_fFOV = 90.0f;
+	static constexpr float m_fZNear = 1.0f;
+	static constexpr float m_fZFar = 300.0f;
+
+	static inline float GetZNormalized(const float fPerspectiveCorrectedDepth) {
+		constexpr float fQ = m_fZFar / (m_fZFar - m_fZNear);
+		float fZ = fQ * m_fZNear / (fQ - fPerspectiveCorrectedDepth);
+		return 1.0f - (fZ - m_fZNear) / (m_fZFar - m_fZNear);
+	}
 
 };
 
