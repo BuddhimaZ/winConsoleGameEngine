@@ -37,6 +37,8 @@ namespace wcge {
 
 			void ClearDepthBuffer();
 
+			const float GetDepthBufferValue(const uint32_t x, const uint32_t y) const;
+
 		protected:
 			size_t CreateVertexShaderInternal(void* pFnShader);
 			size_t CreatePixelShaderInternal(void* pFnShader);

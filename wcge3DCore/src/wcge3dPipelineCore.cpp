@@ -59,6 +59,12 @@ void wcge::c3d::PipelineCore::ClearDepthBuffer() {
 	}
 }
 
+const float wcge::c3d::PipelineCore::GetDepthBufferValue(const uint32_t x, const uint32_t y) const {
+    if (x < m_descriptor.nBackBufferWidth && y < m_descriptor.nBackBufferHeight)
+        return m_pDepthBuffer[static_cast<uint64_t>(x) + static_cast<uint64_t>(y) * static_cast<uint64_t>(m_descriptor.nBackBufferWidth)];
+    return 0.0f;
+}
+
 size_t wcge::c3d::PipelineCore::CreateVertexShaderInternal(void* pFnShader) { 
 	m_vpVertexShaders.push_back(pFnShader); 
 	return m_vpVertexShaders.size() - 1; 
