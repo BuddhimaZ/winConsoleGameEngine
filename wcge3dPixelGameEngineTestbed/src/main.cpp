@@ -3,6 +3,9 @@
 #include "wcge3dCamera.hpp"
 #include "wcgeModel.hpp"
 #include "wcgePixelPipeline.hpp"
+#include <wcgeThreadPool.hpp>
+
+#include <mutex>
 
 using namespace wcge;
 using namespace wcge::c3d;
@@ -16,6 +19,8 @@ public:
 
 private:
 	bool OnUserCreate() override {
+
+		pThreadPool = new mt::ThreadPool();
 
 		m_pPipeline = new wcge::c3d::PixelPipeline(this);
 
@@ -40,42 +45,96 @@ private:
 //));
 //m_vObjects[1]->GetPosition() = Vector3(0.0f, 200.0f, 0.0f);
 
-		m_vObjects.push_back(new r3d::Model(
-			m_pPipeline,
-			r3d::CreateCubeVertexBuffer(1.0f),
-			r3d::CreateCubeIndexBuffer(),
-			L"wcgeResources/texture.jpg"
-		));
+		auto LoadCube = [&](const std::wstring& texturePath) -> r3d::Model* {
+			r3d::Model* pModel =  new r3d::Model(
+				m_pPipeline,
+				r3d::CreateCubeVertexBuffer(1.0f),
+				r3d::CreateCubeIndexBuffer(),
+				texturePath
+			);
+			pModel->SetCamera(m_pCamera);
+			return pModel;
+		};
 
-		m_vObjects.push_back(new r3d::Model(
-			m_pPipeline,
-			r3d::CreateCubeVertexBuffer(1.0f),
-			r3d::CreateCubeIndexBuffer(),
-			L"wcgeResources/texture_2.jpg"
-		));
+		auto LoadFromFile = [&](const std::string& path, const std::wstring& texturePath) -> r3d::Model* {
+			r3d::Model* pModel = r3d::Model::LoadFromFile(
+				m_pPipeline,
+				path,
+				texturePath
+			);
+			pModel->SetCamera(m_pCamera);
+			return pModel;
+		};
 
-		m_vObjects.push_back(new r3d::Model(
-			m_pPipeline,
-			r3d::CreateCubeVertexBuffer(1.0f),
-			r3d::CreateCubeIndexBuffer(),
-			L"wcgeResources/texture_3.jpg"
-		));
+		pThreadPool->Execute([this, LoadCube]() {
+			r3d::Model* pModel = LoadCube(L"wcgeResources/texture.jpg");
+			pModel->GetPosition() = Vector3(0.0f, 0.0f, 0.0f);
+			{
+				std::lock_guard<std::mutex> lock(m_muxObjects);
+				m_vObjects.push_back(pModel);
+			}
+		});
 
-		m_vObjects[1]->GetPosition() += Vector3(5.0f, 0.0f, 0.0f);
-		m_vObjects[2]->GetPosition() += Vector3(-5.0f, 0.0f, 0.0f);
+		//m_vObjects.push_back(new r3d::Model(
+		//	m_pPipeline,
+		//	r3d::CreateCubeVertexBuffer(1.0f),
+		//	r3d::CreateCubeIndexBuffer(),
+		//	L"wcgeResources/texture.jpg"
+		//));
 
-		m_vObjects.push_back(r3d::Model::LoadFromFile(
-			m_pPipeline,
-			"wcgeResources/dragon.obj",
-			L"wcgeResources/dragon.png"
-		));
+		pThreadPool->Execute([this, LoadCube]() {
+			r3d::Model* pModel = LoadCube(L"wcgeResources/texture_2.jpg");
+			pModel->GetPosition() = Vector3(5.0f, 0.0f, 0.0f);
+			{
+				std::lock_guard<std::mutex> lock(m_muxObjects);
+				m_vObjects.push_back(pModel);
+			}
+			});
 
-		m_vObjects[3]->GetScale() = Vector3(1.0f, 1.0f, 1.0f);
-		m_vObjects[3]->GetPosition() = Vector3(0.0f, -50.0f, 0.0f);
+		//m_vObjects.push_back(new r3d::Model(
+		//	m_pPipeline,
+		//	r3d::CreateCubeVertexBuffer(1.0f),
+		//	r3d::CreateCubeIndexBuffer(),
+		//	L"wcgeResources/texture_2.jpg"
+		//));
 
-		for (auto& object : m_vObjects) {
-			object->SetCamera(m_pCamera);
-		}
+		pThreadPool->Execute([this, LoadCube]() {
+			r3d::Model* pModel = LoadCube(L"wcgeResources/texture_3.jpg");
+			pModel->GetPosition() = Vector3(-5.0f, 0.0f, 0.0f);
+			{
+				std::lock_guard<std::mutex> lock(m_muxObjects);
+				m_vObjects.push_back(pModel);
+			}
+			});
+
+		//m_vObjects.push_back(new r3d::Model(
+		//	m_pPipeline,
+		//	r3d::CreateCubeVertexBuffer(1.0f),
+		//	r3d::CreateCubeIndexBuffer(),
+		//	L"wcgeResources/texture_3.jpg"
+		//));
+
+		//m_vObjects[1]->GetPosition() += Vector3(5.0f, 0.0f, 0.0f);
+		//m_vObjects[2]->GetPosition() += Vector3(-5.0f, 0.0f, 0.0f);
+
+		pThreadPool->Execute([this, LoadFromFile]() {
+			r3d::Model* pModel = LoadFromFile("wcgeResources/dragon.obj", L"wcgeResources/dragon.png");
+			pModel->GetScale() = Vector3(1.0f, 1.0f, 1.0f);
+			pModel->GetPosition() = Vector3(0.0f, -50.0f, 0.0f);
+			{
+				std::lock_guard<std::mutex> lock(m_muxObjects);
+				m_vObjects.push_back(pModel);
+			}
+			});
+
+		//m_vObjects.push_back(r3d::Model::LoadFromFile(
+		//	m_pPipeline,
+		//	"wcgeResources/dragon.obj",
+		//	L"wcgeResources/dragon.png"
+		//));
+
+		//m_vObjects[3]->GetScale() = Vector3(1.0f, 1.0f, 1.0f);
+		//m_vObjects[3]->GetPosition() = Vector3(0.0f, -50.0f, 0.0f);
 
 		return true;
 	}
@@ -96,21 +155,37 @@ private:
 		Clear(olc::BLACK);
 		m_pPipeline->ClearDepthBuffer();
 
-		for (auto object : m_vObjects) {
-			object->Draw();
+		//for (auto object : m_vObjects) {
+		//	object->Draw();
+		//}
+
+		size_t nObjectCount = 0;
+		{
+			std::lock_guard<std::mutex> lock(m_muxObjects);
+			nObjectCount = m_vObjects.size();
 		}
 
-		for (uint32_t y = 0; y < ScreenHeight(); y++) {
-			for (uint32_t x = 0; x < ScreenWidth(); x++) {
-				float fZNormalized = GetZNormalized(m_pPipeline->GetDepthBufferValue(x, y));
-
-				olc::Pixel p = GetDrawTarget()->GetPixel(x, y);
-				p = // p * fZNormalized;
-					olc::PixelF(fZNormalized, fZNormalized, fZNormalized, 1.0f);
-
-				Draw(x, y, p);
+		for (size_t i = 0; i < nObjectCount; ++i) {
+			wcge::r3d::Model* pModel = nullptr;
+			{
+				std::lock_guard<std::mutex> lock(m_muxObjects);
+				pModel = m_vObjects[i];
 			}
+			pModel->Draw();
 		}
+
+
+		//for (uint32_t y = 0; y < ScreenHeight(); y++) {
+		//	for (uint32_t x = 0; x < ScreenWidth(); x++) {
+		//		float fZNormalized = GetZNormalized(m_pPipeline->GetDepthBufferValue(x, y));
+
+		//		olc::Pixel p = GetDrawTarget()->GetPixel(x, y);
+		//		p = // p * fZNormalized;
+		//			olc::PixelF(fZNormalized, fZNormalized, fZNormalized, 1.0f);
+
+		//		Draw(x, y, p);
+		//	}
+		//}
 
 		return true;
 	}
@@ -121,6 +196,8 @@ private:
 		}
 		delete m_pCamera;
 		delete m_pPipeline;
+
+		delete pThreadPool;
 		return true;
 	}
 
@@ -183,6 +260,9 @@ private:
 	wcge::r3d::Camera* m_pCamera;
 
 	std::vector<wcge::r3d::Model*> m_vObjects;
+	std::mutex m_muxObjects;
+
+	mt::ThreadPool* pThreadPool = nullptr;
 
 	static constexpr float m_fFOV = 90.0f;
 	static constexpr float m_fZNear = 1.0f;

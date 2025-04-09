@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeJobSystem\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeJobSystem\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -130,7 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeJobSystem\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -147,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)wcgeMath\include;$(SolutionDir)wcgeJobSystem\include;$(SolutionDir)wcgeCore\include;$(SolutionDir)wcge3DCore\include;$(SolutionDir)wcge3DRenderer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -178,6 +178,9 @@
     </ProjectReference>
     <ProjectReference Include="..\wcgeCore\wcgeCore.vcxproj">
       <Project>{8f49a12d-21be-4cb1-8946-ff8e9e9501ef}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\wcgeJobSystem\wcgeJobSystem.vcxproj">
+      <Project>{edaf4611-dd12-4741-b5b0-91cda58dea29}</Project>
     </ProjectReference>
     <ProjectReference Include="..\wcgeMath\wcgeMath.vcxproj">
       <Project>{3b82a4aa-8131-48cb-a7f7-c71e777be9a5}</Project>
