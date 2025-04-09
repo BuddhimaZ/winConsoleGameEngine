@@ -89,16 +89,18 @@ void wcge::ConsoleGameEngine::Run() {
 
 		SMALL_RECT rectWriteRegion = { 0, 0, (SHORT)(m_pFrontBuffer->GetWidth() - 1), (SHORT)(m_pFrontBuffer->GetHeight() - 1) };
 		
-		std::unique_lock<std::mutex> lock( m_muxBufferSwap );
-		m_cvBufferSwapped.wait( lock/*, [this]() { return m_bBufferSwappingDone; }*/);
-		WriteConsoleOutputW(
-			m_hConsole,
-			reinterpret_cast<CHAR_INFO*>(m_pFrontBuffer->GetBufferPtr()),
-			{ static_cast<SHORT>(rectWriteRegion.Right + 1), static_cast<SHORT>(rectWriteRegion.Bottom + 1) },
-			{ 0,0 }, 
-			&rectWriteRegion 
-		);
-		lock.unlock();
+		{
+			std::unique_lock<std::mutex> lock(m_muxBufferSwap);
+			m_cvBufferSwapped.wait(lock/*, [this]() { return m_bBufferSwappingDone; }*/);
+			WriteConsoleOutputW(
+				m_hConsole,
+				reinterpret_cast<CHAR_INFO*>(m_pFrontBuffer->GetBufferPtr()),
+				{ static_cast<SHORT>(rectWriteRegion.Right + 1), static_cast<SHORT>(rectWriteRegion.Bottom + 1) },
+				{ 0,0 },
+				&rectWriteRegion
+			);
+		}
+
 
 		nFrameCounter++;
 		fFrameTime += fElapsedTime;
@@ -137,14 +139,16 @@ void wcge::ConsoleGameEngine::EngineThread() {
 				m_bEngineRunning = false;
 			}
 			
-			std::unique_lock<std::mutex> lock( m_muxBufferSwap );
-			m_bBufferSwappingDone = false;
-			//std::swap( m_pBackBuffer, m_pFrontBuffer );
-			auto tmp = m_pFrontBuffer;
-			m_pFrontBuffer = m_pBackBuffer;
-			m_pBackBuffer = tmp;
-			m_bBufferSwappingDone = true;
-			lock.unlock();
+			{
+				std::unique_lock<std::mutex> lock(m_muxBufferSwap);
+				m_bBufferSwappingDone = false;
+				//std::swap( m_pBackBuffer, m_pFrontBuffer );
+				auto tmp = m_pFrontBuffer;
+				m_pFrontBuffer = m_pBackBuffer;
+				m_pBackBuffer = tmp;
+				m_bBufferSwappingDone = true;
+			}
+
 			m_cvBufferSwapped.notify_one();
 
 		}
